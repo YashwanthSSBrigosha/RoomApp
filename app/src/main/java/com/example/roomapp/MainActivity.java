@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
 
-            AppDatabase appDatabase = AppDatabase.getINSTANCE(MainActivity.this);
+            AppDatabase appDatabase = AppDatabase.getINSTANCE(this.getApplicationContext());
             Names names = new Names();
             names.name = editText.getText().toString();
             appDatabase.nameDao().addName(names);
@@ -44,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
     }
-
     private void loadNames(){
-        AppDatabase appDatabase = AppDatabase.getINSTANCE(MainActivity.this);
+        AppDatabase appDatabase = AppDatabase.getINSTANCE(this.getApplicationContext());
         usernames = appDatabase.nameDao().getNames();
         adapter.setNames(usernames);
     }

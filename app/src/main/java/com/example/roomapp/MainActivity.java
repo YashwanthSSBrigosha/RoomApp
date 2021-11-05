@@ -1,10 +1,13 @@
 package com.example.roomapp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onEditClicked(int position) {
+                Log.i(TAG, "onEditClicked: ");
+            }
+
+            @Override
+            public void onDeleteClicked(int position) {
+                Log.i(TAG, "onDeleteClicked: ");
+            }
+        });
 
     }
     private void loadNames(){

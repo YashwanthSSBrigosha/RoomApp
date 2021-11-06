@@ -18,4 +18,7 @@ public interface NameDao {
 
     @Delete
     void deleteName(Names names);
+
+    @Query("UPDATE Names SET name = :editName WHERE uid = :position")
+    void editDbName(String editName, int position);
 }

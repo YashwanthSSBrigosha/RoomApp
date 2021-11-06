@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerViewAdapter adapter ;
     EditText editText;
     List<Names> usernames;
+    AppDatabase appDatabase;
 
     public void addToList(View view){
         if (editText.getText().toString().equals("")){
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
 
-            AppDatabase appDatabase = AppDatabase.getINSTANCE(this.getApplicationContext());
+            appDatabase = AppDatabase.getINSTANCE(this.getApplicationContext());
             Names names = new Names();
             names.name = editText.getText().toString();
             appDatabase.nameDao().addName(names);
@@ -49,19 +50,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEditClicked(int position) {
                 Log.i(TAG, "onEditClicked: ");
+                editName(position);
             }
 
             @Override
             public void onDeleteClicked(int position) {
                 Log.i(TAG, "onDeleteClicked: ");
+                deleteName(position);
             }
         });
 
     }
     private void loadNames(){
-        AppDatabase appDatabase = AppDatabase.getINSTANCE(this.getApplicationContext());
+        appDatabase = AppDatabase.getINSTANCE(this.getApplicationContext());
         usernames = appDatabase.nameDao().getNames();
         adapter.setNames(usernames);
+    }
+
+    private void deleteName(int position){
+        Names name = usernames.get(position);
+        appDatabase = AppDatabase.getINSTANCE(this.getApplicationContext());
+        appDatabase.nameDao().deleteName(name);
+        adapter.notifyItemChanged(position);
+        loadNames();
+
+    }
+
+    private void editName(int position){
+
     }
 
     @Override

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -77,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void editName(int position){
+        Names name = usernames.get(position);
+        Intent intent = new Intent(getApplicationContext(),EditNameActivity.class);
+        intent.putExtra("index",position);
+        intent.putExtra("name",name.name);
+        intent.putExtra("uid",name.uid);
+        startActivity(intent);
+        loadNames();
+
+
 
     }
 
